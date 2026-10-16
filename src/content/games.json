@@ -28,5 +28,35 @@
     "id": "waffle",
     "title": "Waffle",
     "url": "https://wafflegame.net/"
+  },
+  {
+    "id": "songspot",
+    "title": "Songspot",
+    "url": "https://songspot.net/"
+  },
+  {
+    "id": "amountle",
+    "title": "Amountle",
+    "url": "https://www.amountle.dev/"
+  },
+  {
+    "id": "fermi",
+    "title": "Fermi",
+    "url": "https://fermi.gg/"
+  },
+  {
+    "id": "hsl-color-game",
+    "title": "HSL Color Game",
+    "url": "https://www.realtimecolors.com/game"
+  },
+  {
+    "id": "size-it-up",
+    "title": "Size It Up",
+    "url": "https://magnitudle.com/size-it-up"
+  },
+  {
+    "id": "costcodle",
+    "title": "Costcodle",
+    "url": "https://costcodle.com/"
   }
 ]

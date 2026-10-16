@@ -63,11 +63,17 @@ const { title, description = "A museum for daily games." } = Astro.props;
       } catch {
         // Storage unavailable; keep the default (images enabled).
       }
+
+      // Flag the installed app so its layout tweaks apply before first paint.
+      // Mirrors isInstalledApp(): iOS home-screen apps miss (display-mode: standalone).
+      if (window.matchMedia("(display-mode: standalone)").matches || navigator.standalone === true) {
+        document.documentElement.dataset.pwa = "on";
+      }
     </script>
   </head>
   <body class="min-h-dvh bg-white text-black antialiased dark:bg-black dark:text-white">
     <div class="mx-auto max-w-[75rem] p-4 sm:p-6 lg:p-10">
-      <header class="relative mt-2 mb-4 md:mb-6 lg:mb-8">
+      <header class="relative mt-2 mb-4 pwa:mt-4 md:mb-6 lg:mb-8">
         <h1 class="text-center text-[0.85rem] font-semibold tracking-[0.16em] text-neutral-600 uppercase dark:text-neutral-400">
           {title}
         </h1>

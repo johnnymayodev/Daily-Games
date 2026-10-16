@@ -24,7 +24,9 @@
   "homepage": "https://github.com/johnnymayodev/Daily-Games#readme",
   "dependencies": {
     "@lucide/astro": "^1.57.0",
-    "astro": "^7.4.0"
+    "@tailwindcss/vite": "^4.3.3",
+    "astro": "^7.4.0",
+    "tailwindcss": "^4.3.3"
   },
   "devDependencies": {
     "prettier": "^3.9.10"

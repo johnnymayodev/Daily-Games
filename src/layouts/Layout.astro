@@ -30,6 +30,29 @@ const { title, description = "A museum for daily games." } = Astro.props;
       name="generator"
       content={Astro.generator}
     />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="/favicon.svg"
+    />
+    <link
+      rel="apple-touch-icon"
+      href="/apple-touch-icon.png"
+    />
+    <link
+      rel="manifest"
+      href="/manifest.webmanifest"
+    />
+    <meta
+      name="theme-color"
+      content="#ffffff"
+      media="(prefers-color-scheme: light)"
+    />
+    <meta
+      name="theme-color"
+      content="#000000"
+      media="(prefers-color-scheme: dark)"
+    />
     <title>{title}</title>
     <script is:inline>
       // Apply the saved card-images preference before first paint so hidden cards never flash.
@@ -54,5 +77,14 @@ const { title, description = "A museum for daily games." } = Astro.props;
         <slot />
       </main>
     </div>
+    <script>
+      if (import.meta.env.PROD && "serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker.register("/sw.js").catch(() => {
+            // Registration is best effort; the site works without offline support.
+          });
+        });
+      }
+    </script>
   </body>
 </html>

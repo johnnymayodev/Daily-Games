@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Daily Games">
+  <rect width="512" height="512" fill="#000000" />
+  <rect x="128" y="128" width="256" height="256" rx="56" fill="#ffffff" />
+  <circle cx="192" cy="192" r="26" fill="#000000" />
+  <circle cx="320" cy="192" r="26" fill="#000000" />
+  <circle cx="256" cy="256" r="26" fill="#000000" />
+  <circle cx="192" cy="320" r="26" fill="#000000" />
+  <circle cx="320" cy="320" r="26" fill="#000000" />
+</svg>

@@ -1,1 +1,5 @@
 @import "tailwindcss";
+
+html[data-card-images="off"] .game-card-image {
+  display: none;
+}

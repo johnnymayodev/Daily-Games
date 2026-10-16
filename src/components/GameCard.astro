@@ -1,5 +1,5 @@
 ---
-import { Image } from "astro:assets";
+import { getImage } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
 
 interface Props {
@@ -20,6 +20,7 @@ const accentPalette = [
 const hash = [...game.data.title].reduce((sum, char) => sum + (char.codePointAt(0) ?? 0), 0);
 const accent = accentPalette[hash % accentPalette.length];
 const monogram = game.data.title.trim().charAt(0).toUpperCase();
+const image = game.data.image ? await getImage({ src: game.data.image }) : null;
 ---
 
 <li class="game-card">
@@ -28,22 +29,23 @@ const monogram = game.data.title.trim().charAt(0).toUpperCase();
     target="_blank"
     href={game.data.url}
   >
+    <div
+      class={`game-monogram absolute inset-0 grid place-items-center pb-[12%] text-[50cqw] leading-none font-semibold ${accent}`}
+      aria-hidden="true"
+    >
+      {monogram}
+    </div>
     {
-      game.data.image ? (
-        <Image
-          src={game.data.image}
+      image && (
+        <img
+          class="game-card-image absolute inset-0 h-full w-full object-cover"
+          data-src={image.src}
+          width={image.attributes.width}
+          height={image.attributes.height}
           alt=""
-          class="absolute inset-0 h-full w-full object-cover"
           loading="lazy"
           decoding="async"
         />
-      ) : (
-        <div
-          class={`game-monogram absolute inset-0 grid place-items-center pb-[12%] text-[50cqw] leading-none font-semibold ${accent}`}
-          aria-hidden="true"
-        >
-          {monogram}
-        </div>
       )
     }
     <span
@@ -53,3 +55,9 @@ const monogram = game.data.title.trim().charAt(0).toUpperCase();
     </span>
   </a>
 </li>
+
+<script>
+  import { applyCardImages, isCardImagesEnabled } from "../scripts/card-images";
+
+  applyCardImages(isCardImagesEnabled());
+</script>

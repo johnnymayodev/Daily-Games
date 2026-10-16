@@ -11,17 +11,17 @@ const games = (await getCollection("games")).sort((a, b) => a.data.title.localeC
 
 <Layout title="Daily Games">
   <input
-    class="game-search"
+    class="game-search mb-4 block w-full max-w-96 rounded-xl border border-neutral-200 bg-white px-3.5 py-2.5 text-black placeholder:text-neutral-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black md:mb-6 dark:border-neutral-800 dark:bg-black dark:text-white dark:placeholder:text-neutral-400 dark:focus-visible:outline-white"
     type="search"
     placeholder="Search games"
     aria-label="Search games by title"
     autocomplete="off"
   />
-  <ul class="game-grid">
+  <ul class="grid grid-cols-[repeat(auto-fill,minmax(min(10rem,100%),1fr))] gap-3 md:gap-4 lg:gap-5">
     {games.map((game) => <GameCard game={game} />)}
   </ul>
   <button
-    class="random-game"
+    class="random-game fixed right-4 bottom-[max(1rem,env(safe-area-inset-bottom))] z-10 grid size-12 cursor-pointer place-items-center rounded-full bg-black text-white shadow-lg transition duration-150 hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black sm:right-6 dark:bg-white dark:text-black dark:focus-visible:outline-white"
     type="button"
     aria-label="Open a random game"
   >
@@ -53,64 +53,3 @@ const games = (await getCollection("games")).sort((a, b) => a.data.title.localeC
     });
   }
 </script>
-
-<style>
-  .game-search {
-    display: block;
-    width: 100%;
-    max-width: 24rem;
-    margin-bottom: clamp(1rem, 3vw, 1.75rem);
-    padding: 0.6rem 0.9rem;
-    border: 1px solid var(--border);
-    border-radius: 0.75rem;
-    background-color: var(--bg);
-    color: var(--text);
-    font: inherit;
-  }
-
-  .game-search::placeholder {
-    color: var(--muted);
-  }
-
-  .game-search:focus-visible {
-    outline: 2px solid var(--text);
-    outline-offset: 2px;
-  }
-
-  .game-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(10rem, 100%), 1fr));
-    gap: clamp(0.75rem, 2vw, 1.25rem);
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-
-  .random-game {
-    position: fixed;
-    right: clamp(1rem, 3vw, 1.5rem);
-    bottom: max(clamp(1rem, 3vw, 1.5rem), env(safe-area-inset-bottom));
-    z-index: 1;
-    display: grid;
-    place-items: center;
-    width: 3rem;
-    height: 3rem;
-    padding: 0;
-    border: none;
-    border-radius: 50%;
-    background-color: var(--text);
-    color: var(--bg);
-    cursor: pointer;
-    box-shadow: 0 0.5rem 1.25rem rgb(0 0 0 / 0.25);
-    transition: transform 150ms ease;
-  }
-
-  .random-game:hover {
-    transform: translateY(-2px);
-  }
-
-  .random-game:focus-visible {
-    outline: 2px solid var(--text);
-    outline-offset: 2px;
-  }
-</style>

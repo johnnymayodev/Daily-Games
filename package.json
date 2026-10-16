@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/johnnymayodev/Daily-Games#readme",
   "dependencies": {
+    "@lucide/astro": "^1.57.0",
     "astro": "^7.4.0"
   },
   "devDependencies": {

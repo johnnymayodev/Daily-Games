@@ -8,3 +8,15 @@
 html[data-card-images="off"] .game-card-image {
   display: none;
 }
+
+/* Game card images fade in gently once they load. applyCardImages() only adds
+   the loading class when the image was not available almost immediately, so
+   cached images skip the fade and appear instantly. */
+.game-card-image {
+  transition: opacity 600ms ease-out;
+}
+
+.game-card-image.game-card-image-loading {
+  opacity: 0;
+  transition: none;
+}

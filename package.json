@@ -3,6 +3,7 @@
   "description": "A museum for daily games",
   "main": "index.js",
   "scripts": {
+    "format": "prettier --write .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -19,5 +20,8 @@
   "homepage": "https://github.com/johnnymayodev/Daily-Games#readme",
   "dependencies": {
     "astro": "^7.4.0"
+  },
+  "devDependencies": {
+    "prettier": "^3.9.10"
   }
 }

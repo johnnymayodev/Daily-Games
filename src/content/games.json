@@ -2,61 +2,73 @@
   {
     "id": "wordle",
     "title": "Wordle",
-    "url": "https://www.nytimes.com/games/wordle/index.html"
+    "url": "https://www.nytimes.com/games/wordle/index.html",
+    "image": "./images/wordle.png"
   },
   {
     "id": "connections",
     "title": "Connections",
-    "url": "https://www.nytimes.com/games/connections/"
+    "url": "https://www.nytimes.com/games/connections/",
+    "image": "./images/connections.png"
   },
   {
     "id": "globle",
     "title": "Globle",
-    "url": "https://globle-game.com/"
+    "url": "https://globle-game.com/",
+    "image": "./images/globle.png"
   },
   {
     "id": "enclose-horse",
     "title": "enclose.horse",
-    "url": "https://enclose.horse/"
+    "url": "https://enclose.horse/",
+    "image": "./images/enclose-horse.png"
   },
   {
     "id": "krillion",
     "title": "Krillion",
-    "url": "https://krillion.io/"
+    "url": "https://krillion.io/",
+    "image": "./images/krillion.png"
   },
   {
     "id": "waffle",
     "title": "Waffle",
-    "url": "https://wafflegame.net/"
+    "url": "https://wafflegame.net/",
+    "image": "./images/waffle.png"
   },
   {
     "id": "songspot",
     "title": "Songspot",
-    "url": "https://songspot.net/"
+    "url": "https://songspot.net/",
+    "image": "./images/songspot.png"
   },
   {
     "id": "amountle",
     "title": "Amountle",
-    "url": "https://www.amountle.dev/"
+    "url": "https://www.amountle.dev/",
+    "image": "./images/amountle.png"
   },
   {
     "id": "fermi",
     "title": "Fermi",
-    "url": "https://fermi.gg/"
+    "url": "https://fermi.gg/",
+    "image": "./images/fermi.png"
   },
   {
     "id": "hsl-color-game",
     "title": "HSL Color Game",
-    "url": "https://www.realtimecolors.com/game"
+    "url": "https://www.realtimecolors.com/game",
+    "image": "./images/hsl-color-game.png"
   },
   {
     "id": "size-it-up",
     "title": "Size It Up",
-    "url": "https://magnitudle.com/size-it-up"
+    "url": "https://magnitudle.com/size-it-up",
+    "image": "./images/size-it-up.png"
   },
   {
     "id": "costcodle",
     "title": "Costcodle",
-    "url": "https://costcodle.com/"
+    "url": "https://costcodle.com/",
+    "image": "./images/costcodle.png"
   }
 ]

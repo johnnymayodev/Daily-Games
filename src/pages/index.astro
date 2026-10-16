@@ -1,6 +1,8 @@
 ---
 import { getCollection } from "astro:content";
 
+import { Dices } from "@lucide/astro";
+
 import GameCard from "../components/GameCard.astro";
 import Layout from "../layouts/Layout.astro";
 
@@ -18,11 +20,20 @@ const games = (await getCollection("games")).sort((a, b) => a.data.title.localeC
   <ul class="game-grid">
     {games.map((game) => <GameCard game={game} />)}
   </ul>
+  <button
+    class="random-game"
+    type="button"
+    aria-label="Open a random game"
+  >
+    <Dices />
+  </button>
 </Layout>
 
 <script>
   const searchInput = document.querySelector<HTMLInputElement>(".game-search");
   const cards = document.querySelectorAll<HTMLElement>(".game-card");
+  const randomButton = document.querySelector<HTMLButtonElement>(".random-game");
+  const gameLinks = Array.from(document.querySelectorAll<HTMLAnchorElement>(".game-link"));
 
   if (searchInput) {
     searchInput.addEventListener("input", () => {
@@ -32,6 +43,13 @@ const games = (await getCollection("games")).sort((a, b) => a.data.title.localeC
         const title = card.querySelector(".game-title")?.textContent?.trim().toLowerCase() ?? "";
         card.hidden = !title.includes(query);
       }
+    });
+  }
+
+  if (randomButton && gameLinks.length > 0) {
+    randomButton.addEventListener("click", () => {
+      const link = gameLinks[Math.floor(Math.random() * gameLinks.length)];
+      window.open(link.href, "_blank", "noopener");
     });
   }
 </script>
@@ -66,5 +84,33 @@ const games = (await getCollection("games")).sort((a, b) => a.data.title.localeC
     margin: 0;
     padding: 0;
     list-style: none;
+  }
+
+  .random-game {
+    position: fixed;
+    right: clamp(1rem, 3vw, 1.5rem);
+    bottom: max(clamp(1rem, 3vw, 1.5rem), env(safe-area-inset-bottom));
+    z-index: 1;
+    display: grid;
+    place-items: center;
+    width: 3rem;
+    height: 3rem;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background-color: var(--text);
+    color: var(--bg);
+    cursor: pointer;
+    box-shadow: 0 0.5rem 1.25rem rgb(0 0 0 / 0.25);
+    transition: transform 150ms ease;
+  }
+
+  .random-game:hover {
+    transform: translateY(-2px);
+  }
+
+  .random-game:focus-visible {
+    outline: 2px solid var(--text);
+    outline-offset: 2px;
   }
 </style>

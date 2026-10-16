@@ -1,0 +1,102 @@
+---
+import { Image } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  game: CollectionEntry<"games">;
+}
+
+const { game } = Astro.props;
+
+const accentPalette = ["#4ade80", "#fbbf24", "#38bdf8", "#a78bfa", "#fb7185", "#2dd4bf", "#fb923c", "#a3e635"];
+const hash = [...game.data.title].reduce((sum, char) => sum + (char.codePointAt(0) ?? 0), 0);
+const accent = accentPalette[hash % accentPalette.length];
+const monogram = game.data.title.trim().charAt(0).toUpperCase();
+---
+
+<li class="game-card">
+  <a
+    class="game-link"
+    target="_blank"
+    href={game.data.url}
+  >
+    {
+      game.data.image ? (
+        <Image
+          src={game.data.image}
+          alt=""
+          loading="lazy"
+          decoding="async"
+        />
+      ) : (
+        <div
+          class="game-monogram"
+          aria-hidden="true"
+          style={`--accent: ${accent}`}
+        >
+          {monogram}
+        </div>
+      )
+    }
+    <span class="game-title">{game.data.title}</span>
+  </a>
+</li>
+
+<style>
+  .game-link {
+    position: relative;
+    display: block;
+    aspect-ratio: 1;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: 0.75rem;
+    background-color: var(--tile-bg);
+    container-type: inline-size;
+    transition:
+      transform 150ms ease,
+      border-color 150ms ease;
+  }
+
+  .game-link:hover {
+    transform: translateY(-2px);
+    border-color: var(--muted);
+  }
+
+  .game-link:focus-visible {
+    outline: 2px solid var(--text);
+    outline-offset: 2px;
+  }
+
+  .game-link :global(img) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .game-monogram {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    padding-bottom: 12%;
+    background-color: color-mix(in srgb, var(--accent) 15%, var(--tile-bg));
+    color: var(--accent);
+    font-size: 50cqw;
+    font-weight: 600;
+    line-height: 1;
+  }
+
+  .game-title {
+    position: absolute;
+    inset-inline: 0;
+    bottom: 0;
+    padding: 1.75rem 0.75rem 0.6rem;
+    background: linear-gradient(to top, rgb(0 0 0 / 0.85), transparent);
+    color: #ffffff;
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+  }
+</style>

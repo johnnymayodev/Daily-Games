@@ -1,0 +1,17 @@
+[
+  {
+    "id": "wordle",
+    "title": "Wordle",
+    "url": "https://www.nytimes.com/games/wordle/index.html"
+  },
+  {
+    "id": "connections",
+    "title": "Connections",
+    "url": "https://www.nytimes.com/games/connections"
+  },
+  {
+    "id": "globle",
+    "title": "Globle",
+    "url": "https://globle-game.com/"
+  }
+]

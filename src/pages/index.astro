@@ -8,12 +8,57 @@ const games = (await getCollection("games")).sort((a, b) => a.data.title.localeC
 ---
 
 <Layout title="Daily Games">
+  <input
+    class="game-search"
+    type="search"
+    placeholder="Search games"
+    aria-label="Search games by title"
+    autocomplete="off"
+  />
   <ul class="game-grid">
     {games.map((game) => <GameCard game={game} />)}
   </ul>
 </Layout>
 
+<script>
+  const searchInput = document.querySelector<HTMLInputElement>(".game-search");
+  const cards = document.querySelectorAll<HTMLElement>(".game-card");
+
+  if (searchInput) {
+    searchInput.addEventListener("input", () => {
+      const query = searchInput.value.trim().toLowerCase();
+
+      for (const card of cards) {
+        const title = card.querySelector(".game-title")?.textContent?.trim().toLowerCase() ?? "";
+        card.hidden = !title.includes(query);
+      }
+    });
+  }
+</script>
+
 <style>
+  .game-search {
+    display: block;
+    width: 100%;
+    max-width: 24rem;
+    margin-bottom: clamp(1rem, 3vw, 1.75rem);
+    padding: 0.6rem 0.9rem;
+    border: 1px solid var(--border);
+    border-radius: 0.75rem;
+    background-color: var(--bg);
+    color: var(--text);
+    font: inherit;
+  }
+
+  .game-search::placeholder {
+    color: var(--muted);
+  }
+
+  .game-search:focus-visible {
+    outline: 2px solid var(--text);
+    outline-offset: 2px;
+  }
+
   .game-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(min(10rem, 100%), 1fr));

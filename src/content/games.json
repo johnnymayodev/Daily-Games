@@ -7,11 +7,26 @@
   {
     "id": "connections",
     "title": "Connections",
-    "url": "https://www.nytimes.com/games/connections"
+    "url": "https://www.nytimes.com/games/connections/"
   },
   {
     "id": "globle",
     "title": "Globle",
     "url": "https://globle-game.com/"
+  },
+  {
+    "id": "enclose-horse",
+    "title": "enclose.horse",
+    "url": "https://enclose.horse/"
+  },
+  {
+    "id": "krillion",
+    "title": "Krillion",
+    "url": "https://krillion.io/"
+  },
+  {
+    "id": "waffle",
+    "title": "Waffle",
+    "url": "https://wafflegame.net/"
   }
 ]

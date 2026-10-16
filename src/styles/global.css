@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+/* Layout tweaks for the installed app. The attribute is set before first paint
+   by the inline script in Layout.astro, using the same detection as
+   isInstalledApp() in scripts/open-in-browser.ts. */
+@custom-variant pwa (&:where(html[data-pwa="on"] *));
+
 html[data-card-images="off"] .game-card-image {
   display: none;
 }

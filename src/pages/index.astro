@@ -1,7 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 
-import { Dices } from "@lucide/astro";
+import { Dices, X } from "@lucide/astro";
 
 import GameCard from "../components/GameCard.astro";
 import Layout from "../layouts/Layout.astro";
@@ -10,13 +10,23 @@ const games = (await getCollection("games")).sort((a, b) => a.data.title.localeC
 ---
 
 <Layout title="Daily Games">
-  <input
-    class="game-search mb-4 block w-full max-w-96 rounded-xl border border-neutral-200 bg-white px-3.5 py-2.5 text-black placeholder:text-neutral-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black md:mb-6 dark:border-neutral-800 dark:bg-black dark:text-white dark:placeholder:text-neutral-400 dark:focus-visible:outline-white"
-    type="search"
-    placeholder="Search games"
-    aria-label="Search games by title"
-    autocomplete="off"
-  />
+  <div class="relative mb-4 w-full max-w-96 md:mb-6">
+    <input
+      class="game-search block w-full rounded-xl border border-neutral-200 bg-white px-3.5 py-2.5 pr-10 text-black placeholder:text-neutral-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black md:pr-3.5 dark:border-neutral-800 dark:bg-black dark:text-white dark:placeholder:text-neutral-400 dark:focus-visible:outline-white"
+      type="search"
+      placeholder="Search games"
+      aria-label="Search games by title"
+      autocomplete="off"
+    />
+    <button
+      class="search-clear absolute top-1/2 right-2 grid size-7 -translate-y-1/2 cursor-pointer place-items-center rounded-md text-neutral-500 transition duration-150 hover:bg-neutral-100 hover:text-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black md:hidden dark:text-neutral-400 dark:hover:bg-neutral-900 dark:hover:text-white dark:focus-visible:outline-white"
+      type="button"
+      aria-label="Clear search"
+      hidden
+    >
+      <X size={16} />
+    </button>
+  </div>
   <ul class="grid grid-cols-[repeat(auto-fill,minmax(min(10rem,100%),1fr))] gap-3 md:gap-4 lg:gap-5">
     {games.map((game) => <GameCard game={game} />)}
   </ul>
@@ -33,18 +43,33 @@ const games = (await getCollection("games")).sort((a, b) => a.data.title.localeC
   import { openInSafari } from "../scripts/open-in-browser";
 
   const searchInput = document.querySelector<HTMLInputElement>(".game-search");
+  const searchClear = document.querySelector<HTMLButtonElement>(".search-clear");
   const cards = document.querySelectorAll<HTMLElement>(".game-card");
   const randomButton = document.querySelector<HTMLButtonElement>(".random-game");
   const gameLinks = Array.from(document.querySelectorAll<HTMLAnchorElement>(".game-link"));
 
   if (searchInput) {
-    searchInput.addEventListener("input", () => {
+    const applySearch = () => {
       const query = searchInput.value.trim().toLowerCase();
 
       for (const card of cards) {
         const title = card.querySelector(".game-title")?.textContent?.trim().toLowerCase() ?? "";
         card.hidden = !title.includes(query);
       }
+
+      if (searchClear) {
+        searchClear.hidden = searchInput.value.length === 0;
+      }
+    };
+
+    searchInput.addEventListener("input", applySearch);
+    applySearch();
+
+    searchClear?.addEventListener("click", () => {
+      searchInput.value = "";
+      applySearch();
+      // Dismiss the on-screen keyboard after clearing.
+      searchInput.blur();
     });
   }
 
@@ -58,3 +83,13 @@ const games = (await getCollection("games")).sort((a, b) => a.data.title.localeC
     });
   }
 </script>
+
+<style>
+  /* The custom clear button replaces WebKit's native one on mobile. */
+  @media (max-width: 767.98px) {
+    .game-search::-webkit-search-cancel-button {
+      -webkit-appearance: none;
+      appearance: none;
+    }
+  }
+</style>

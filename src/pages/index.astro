@@ -1,0 +1,25 @@
+---
+import { getCollection } from "astro:content";
+
+import GameCard from "../components/GameCard.astro";
+import Layout from "../layouts/Layout.astro";
+
+const games = (await getCollection("games")).sort((a, b) => a.data.title.localeCompare(b.data.title));
+---
+
+<Layout title="Daily Games">
+  <ul class="game-grid">
+    {games.map((game) => <GameCard game={game} />)}
+  </ul>
+</Layout>
+
+<style>
+  .game-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(10rem, 100%), 1fr));
+    gap: clamp(0.75rem, 2vw, 1.25rem);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+</style>

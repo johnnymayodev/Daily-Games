@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/johnnymayodev/Daily-Games/issues"
   },
-  "homepage": "https://github.com/johnnymayodev/Daily-Games#readme"
+  "homepage": "https://github.com/johnnymayodev/Daily-Games#readme",
+  "dependencies": {
+    "astro": "^7.4.0"
+  }
 }

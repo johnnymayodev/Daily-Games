@@ -23,7 +23,7 @@ export function isInstalledApp(): boolean {
   );
 }
 
-function isIos(): boolean {
+export function isIos(): boolean {
   return /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
 }
 

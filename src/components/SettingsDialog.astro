@@ -83,11 +83,47 @@ import { Settings, X } from "@lucide/astro";
       ></span>
     </label>
   </section>
+
+  <section
+    class="settings-install-section mt-5 border-t border-neutral-200 pt-5 dark:border-neutral-800"
+    aria-labelledby="settings-install-heading"
+    hidden
+  >
+    <h3
+      id="settings-install-heading"
+      class="text-xs font-semibold tracking-[0.12em] text-neutral-500 uppercase dark:text-neutral-400"
+    >
+      Install
+    </h3>
+    <p class="mt-3 text-xs text-neutral-600 dark:text-neutral-400">
+      Add Daily Games to your home screen for a full-screen, app-like experience.
+    </p>
+    <button
+      class="settings-install-button mt-3 w-full cursor-pointer rounded-lg bg-black px-3 py-2 text-xs font-medium text-white transition duration-150 hover:bg-neutral-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black dark:bg-white dark:text-black dark:hover:bg-neutral-200 dark:focus-visible:outline-white"
+      type="button"
+      hidden
+    >
+      Install app
+    </button>
+    <p
+      class="settings-install-hint-ios mt-3 text-xs text-neutral-600 dark:text-neutral-400"
+      hidden
+    >
+      Tap the Share button in the toolbar, then choose “Add to Home Screen”.
+    </p>
+    <p
+      class="settings-install-hint-other mt-3 text-xs text-neutral-600 dark:text-neutral-400"
+      hidden
+    >
+      Open your browser menu, then choose “Install app” or “Add to Home screen”.
+    </p>
+  </section>
 </dialog>
 
 <script>
   import { applyCardImages, isCardImagesEnabled, storeCardImagesEnabled } from "../scripts/card-images";
-  import { isInstalledApp, isOpenInBrowserEnabled, storeOpenInBrowserEnabled } from "../scripts/open-in-browser";
+  import { canPromptInstall, promptInstall, shouldSuggestInstall } from "../scripts/install-suggestion";
+  import { isInstalledApp, isIos, isOpenInBrowserEnabled, storeOpenInBrowserEnabled } from "../scripts/open-in-browser";
 
   const settingsButton = document.querySelector<HTMLButtonElement>(".settings-button");
   const settingsDialog = document.querySelector<HTMLDialogElement>(".settings-dialog");
@@ -95,11 +131,61 @@ import { Settings, X } from "@lucide/astro";
   const cardImagesToggle = document.querySelector<HTMLInputElement>(".settings-card-images");
   const openInBrowserToggle = document.querySelector<HTMLInputElement>(".settings-open-in-browser");
   const openInBrowserSection = document.querySelector<HTMLElement>(".settings-open-in-browser-section");
+  const installSection = document.querySelector<HTMLElement>(".settings-install-section");
+  const installButton = document.querySelector<HTMLButtonElement>(".settings-install-button");
+  const installHintIos = document.querySelector<HTMLElement>(".settings-install-hint-ios");
+  const installHintOther = document.querySelector<HTMLElement>(".settings-install-hint-other");
 
   // Browser hand-off only applies to the installed app, so only offer the setting there.
   if (openInBrowserSection && isInstalledApp()) {
     openInBrowserSection.hidden = false;
   }
+
+  // Mobile browsers that are not running the installed app get the install section. The button
+  // shows only while a native install prompt is available; otherwise the steps are shown as text.
+  function syncInstallSection(): void {
+    if (!installSection || !shouldSuggestInstall()) {
+      return;
+    }
+
+    const promptReady = canPromptInstall();
+    const hint = isIos() ? installHintIos : installHintOther;
+
+    installSection.hidden = false;
+
+    if (installButton) {
+      installButton.hidden = !promptReady;
+    }
+
+    if (hint) {
+      hint.hidden = promptReady;
+    }
+  }
+
+  syncInstallSection();
+
+  // Chromium can fire the prompt event after load; upgrade the text to the button when it does.
+  window.addEventListener("beforeinstallprompt", syncInstallSection);
+
+  installButton?.addEventListener("click", async () => {
+    if ((await promptInstall()) === "accepted") {
+      if (installSection) {
+        installSection.hidden = true;
+      }
+
+      return;
+    }
+
+    // The prompt is consumed either way; drop the button when it cannot be shown again.
+    syncInstallSection();
+  });
+
+  // Installs started from the browser's own menu never pass through the button.
+  window.addEventListener("appinstalled", () => {
+    if (installSection) {
+      installSection.hidden = true;
+    }
+  });
 
   if (cardImagesToggle) {
     cardImagesToggle.checked = isCardImagesEnabled();

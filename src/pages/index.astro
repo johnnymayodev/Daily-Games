@@ -30,6 +30,8 @@ const games = (await getCollection("games")).sort((a, b) => a.data.title.localeC
 </Layout>
 
 <script>
+  import { openInSafari } from "../scripts/open-in-browser";
+
   const searchInput = document.querySelector<HTMLInputElement>(".game-search");
   const cards = document.querySelectorAll<HTMLElement>(".game-card");
   const randomButton = document.querySelector<HTMLButtonElement>(".random-game");
@@ -49,7 +51,10 @@ const games = (await getCollection("games")).sort((a, b) => a.data.title.localeC
   if (randomButton && gameLinks.length > 0) {
     randomButton.addEventListener("click", () => {
       const link = gameLinks[Math.floor(Math.random() * gameLinks.length)];
-      window.open(link.href, "_blank", "noopener");
+
+      if (!openInSafari(link.href)) {
+        window.open(link.href, "_blank", "noopener");
+      }
     });
   }
 </script>

@@ -58,6 +58,19 @@ const image = game.data.image ? await getImage({ src: game.data.image }) : null;
 
 <script>
   import { applyCardImages, isCardImagesEnabled } from "../scripts/card-images";
+  import { openInSafari } from "../scripts/open-in-browser";
 
   applyCardImages(isCardImagesEnabled());
+
+  document.addEventListener("click", (event) => {
+    if (!(event.target instanceof Element)) {
+      return;
+    }
+
+    const link = event.target.closest<HTMLAnchorElement>("a.game-link");
+
+    if (link && openInSafari(link.href)) {
+      event.preventDefault();
+    }
+  });
 </script>

@@ -4,6 +4,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "astro dev",
+    "fallow": "npx fallow",
     "format": "prettier --write .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

@@ -1,0 +1,11 @@
+# Node
+node_modules/
+
+# Environment 
+.env
+
+# Build
+dist/
+
+# Astro
+.astro/

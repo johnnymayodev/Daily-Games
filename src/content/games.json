@@ -2,72 +2,84 @@
   {
     "id": "wordle",
     "title": "Wordle",
+    "popularityIndex": 1,
     "url": "https://www.nytimes.com/games/wordle/index.html",
     "image": "./images/wordle.png"
   },
   {
     "id": "connections",
     "title": "Connections",
+    "popularityIndex": 1,
     "url": "https://www.nytimes.com/games/connections/",
     "image": "./images/connections.png"
   },
   {
     "id": "globle",
     "title": "Globle",
+    "popularityIndex": 13,
     "url": "https://globle-game.com/",
     "image": "./images/globle.png"
   },
   {
     "id": "enclose-horse",
     "title": "enclose.horse",
+    "popularityIndex": 5,
     "url": "https://enclose.horse/",
     "image": "./images/enclose-horse.png"
   },
   {
     "id": "krillion",
     "title": "Krillion",
+    "popularityIndex": 2,
     "url": "https://krillion.io/",
     "image": "./images/krillion.png"
   },
   {
     "id": "waffle",
     "title": "Waffle",
+    "popularityIndex": 40,
     "url": "https://wafflegame.net/",
     "image": "./images/waffle.png"
   },
   {
     "id": "songspot",
     "title": "Songspot",
+    "popularityIndex": 10,
     "url": "https://songspot.net/",
     "image": "./images/songspot.png"
   },
   {
     "id": "amountle",
     "title": "Amountle",
+    "popularityIndex": 15,
     "url": "https://www.amountle.dev/",
     "image": "./images/amountle.png"
   },
   {
     "id": "fermi",
     "title": "Fermi",
+    "popularityIndex": 20,
     "url": "https://fermi.gg/",
     "image": "./images/fermi.png"
   },
   {
     "id": "hsl-color-game",
     "title": "HSL Color Game",
+    "popularityIndex": 80,
     "url": "https://www.realtimecolors.com/game",
     "image": "./images/hsl-color-game.png"
   },
   {
     "id": "size-it-up",
     "title": "Size It Up",
+    "popularityIndex": 60,
     "url": "https://magnitudle.com/size-it-up",
     "image": "./images/size-it-up.png"
   },
   {
     "id": "costcodle",
     "title": "Costcodle",
+    "popularityIndex": 45,
     "url": "https://costcodle.com/",
     "image": "./images/costcodle.png"
   }

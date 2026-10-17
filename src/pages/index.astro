@@ -6,7 +6,10 @@ import { Dices, X } from "@lucide/astro";
 import GameCard from "../components/GameCard.astro";
 import Layout from "../layouts/Layout.astro";
 
-const games = (await getCollection("games")).sort((a, b) => a.data.title.localeCompare(b.data.title));
+const games = (await getCollection("games")).sort(
+  (a, b) =>
+    a.data.popularityIndex - b.data.popularityIndex || a.data.title.localeCompare(b.data.title),
+);
 ---
 
 <Layout title="Daily Games">

@@ -23,7 +23,7 @@ const monogram = game.data.title.trim().charAt(0).toUpperCase();
 const image = game.data.image ? await getImage({ src: game.data.image }) : null;
 ---
 
-<li class="game-card">
+<li class="game-card" data-game-id={game.id}>
   <a
     class="game-link @container relative block aspect-square overflow-hidden rounded-xl border border-neutral-200 bg-neutral-950 transition duration-150 hover:-translate-y-0.5 hover:border-neutral-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black dark:border-neutral-800 dark:hover:border-neutral-400 dark:focus-visible:outline-white"
     target="_blank"
@@ -59,8 +59,28 @@ const image = game.data.image ? await getImage({ src: game.data.image }) : null;
 <script>
   import { applyCardImages, isCardImagesEnabled } from "../scripts/card-images";
   import { openInSafari } from "../scripts/open-in-browser";
+  import { incrementPopularity } from "../scripts/popularity";
 
   applyCardImages(isCardImagesEnabled());
+
+  // Counts the tap and re-orders the grid while the link opens, so the new
+  // order is already in place when the player returns to this page.
+  function recordGameTap(link: HTMLAnchorElement): void {
+    const card = link.closest<HTMLElement>(".game-card");
+    const grid = card?.parentElement;
+    const gameId = card?.dataset.gameId;
+
+    if (!grid || !gameId) {
+      return;
+    }
+
+    const popularity = incrementPopularity(gameId);
+    const cards = Array.from(grid.querySelectorAll<HTMLElement>(".game-card"));
+
+    // The stable sort keeps the server-rendered title order for equal popularity.
+    cards.sort((a, b) => (popularity[b.dataset.gameId ?? ""] ?? 0) - (popularity[a.dataset.gameId ?? ""] ?? 0));
+    grid.append(...cards);
+  }
 
   document.addEventListener("click", (event) => {
     if (!(event.target instanceof Element)) {
@@ -69,7 +89,13 @@ const image = game.data.image ? await getImage({ src: game.data.image }) : null;
 
     const link = event.target.closest<HTMLAnchorElement>("a.game-link");
 
-    if (link && openInSafari(link.href)) {
+    if (!link) {
+      return;
+    }
+
+    recordGameTap(link);
+
+    if (openInSafari(link.href)) {
       event.preventDefault();
     }
   });

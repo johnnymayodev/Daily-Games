@@ -8,7 +8,7 @@ The site is live at **https://daily.johnnymayo.com**.
 
 ## What it is
 
-Daily Games gathers daily puzzle games from around the web — Wordle, Connections, Globle, Waffle, and more — onto one page. Each game appears as a card with a preview image, and tapping a card opens the game. Use the search box to filter games by title, the dice button to open a random game, or install the site as a PWA from your browser.
+Daily Games gathers daily puzzle games from around the web — Wordle, Connections, Globle, Waffle, and more — onto one page. Each game appears as a card with a preview image, and tapping a card opens the game. Taps are counted locally on your device, and the games you open most rise to the top. Use the search box to filter games by title, the dice button to open a random game, or install the site as a PWA from your browser.
 
 ## Preview
 

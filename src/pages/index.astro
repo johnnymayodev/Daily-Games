@@ -30,9 +30,31 @@ const games = (await getCollection("games")).sort(
       <X size={16} />
     </button>
   </div>
-  <ul class="grid grid-cols-[repeat(auto-fill,minmax(min(10rem,100%),1fr))] gap-3 md:gap-4 lg:gap-5">
+  <ul class="game-grid grid grid-cols-[repeat(auto-fill,minmax(min(10rem,100%),1fr))] gap-3 md:gap-4 lg:gap-5">
     {games.map((game) => <GameCard game={game} />)}
   </ul>
+  <script is:inline>
+    // Orders the grid by local popularity before first paint. Equal counts keep
+    // the server-rendered title order because the sort is stable. Keeps the same
+    // "positive finite number or nothing" rule as readPopularity().
+    try {
+      const popularity = JSON.parse(localStorage.getItem("daily-games:popularity") ?? "{}") ?? {};
+      const count = (id) => {
+        const value = popularity[id];
+        return typeof value === "number" && Number.isFinite(value) && value > 0 ? value : 0;
+      };
+      const grid = document.querySelector(".game-grid");
+
+      if (grid) {
+        const cards = Array.from(grid.querySelectorAll(".game-card"));
+
+        cards.sort((a, b) => count(b.dataset.gameId) - count(a.dataset.gameId));
+        grid.append(...cards);
+      }
+    } catch {
+      // Storage unavailable; keep the alphabetical order.
+    }
+  </script>
   <button
     class="random-game fixed right-4 pwa:right-6 bottom-[max(1rem,env(safe-area-inset-bottom))] pwa:bottom-[max(1.5rem,calc(env(safe-area-inset-bottom)_+_0.5rem))] z-10 grid size-12 pwa:size-14 cursor-pointer place-items-center rounded-full bg-black text-white shadow-lg transition duration-150 hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black sm:right-6 sm:pwa:right-8 dark:bg-white dark:text-black dark:focus-visible:outline-white"
     type="button"

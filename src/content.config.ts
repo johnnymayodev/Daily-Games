@@ -7,6 +7,7 @@ const games = defineCollection({
   schema: ({ image }) =>
     z.object({
       title: z.string(),
+      popularityIndex: z.number().int().positive(),
       url: z.url(),
       image: image().optional(),
     }),

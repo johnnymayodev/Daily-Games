@@ -31,7 +31,7 @@ const games = (await getCollection("games")).sort(
     </button>
   </div>
   <ul class="game-grid grid grid-cols-[repeat(auto-fill,minmax(min(10rem,100%),1fr))] gap-3 md:gap-4 lg:gap-5">
-    {games.map((game) => <GameCard game={game} />)}
+    {games.map((game, defaultRank) => <GameCard game={game} defaultRank={defaultRank} />)}
   </ul>
   <script is:inline>
     // Orders the grid by local popularity before first paint. Equal counts keep

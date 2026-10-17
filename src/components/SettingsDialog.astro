@@ -1,5 +1,9 @@
 ---
+import { getCollection } from "astro:content";
+
 import { Settings, X } from "@lucide/astro";
+
+const games = (await getCollection("games")).sort((a, b) => a.data.title.localeCompare(b.data.title));
 ---
 
 <button
@@ -12,7 +16,7 @@ import { Settings, X } from "@lucide/astro";
 </button>
 
 <dialog
-  class="settings-dialog m-auto w-[min(24rem,calc(100vw-2rem))] rounded-xl border border-neutral-200 bg-white p-5 text-black shadow-xl backdrop:bg-black/40 dark:border-neutral-800 dark:bg-neutral-950 dark:text-white dark:backdrop:bg-black/70"
+  class="settings-dialog m-auto max-h-[85dvh] w-[min(24rem,calc(100vw-2rem))] overflow-y-auto overscroll-contain rounded-xl border border-neutral-200 bg-white p-5 text-black shadow-xl backdrop:bg-black/40 dark:border-neutral-800 dark:bg-neutral-950 dark:text-white dark:backdrop:bg-black/70"
   aria-labelledby="settings-title"
 >
   <div class="mb-5 flex items-center justify-between">
@@ -53,6 +57,48 @@ import { Settings, X } from "@lucide/astro";
         aria-hidden="true"
       ></span>
     </label>
+  </section>
+
+  <section
+    class="mt-5 border-t border-neutral-200 pt-5 dark:border-neutral-800"
+    aria-labelledby="settings-games-heading"
+  >
+    <h3
+      id="settings-games-heading"
+      class="text-xs font-semibold tracking-[0.12em] text-neutral-500 uppercase dark:text-neutral-400"
+    >
+      Games
+    </h3>
+    <p class="mt-3 text-xs text-neutral-600 dark:text-neutral-400">
+      Games you open rank higher on the home screen. Resetting a game clears its tap count on this device.
+    </p>
+    <ul
+      class="settings-popularity-list mt-1 divide-y divide-neutral-200 dark:divide-neutral-800"
+      hidden
+    >
+      {
+        games.map((game) => (
+          <li
+            class="settings-popularity-row flex items-center justify-between gap-3 py-1.5"
+            data-game-id={game.id}
+            hidden
+          >
+            <span class="min-w-0 flex-1 truncate text-sm font-medium">{game.data.title}</span>
+            <span class="settings-popularity-count text-xs text-neutral-600 dark:text-neutral-400" />
+            <button
+              class="settings-reset-game cursor-pointer rounded-md px-2 py-1 text-xs font-medium text-neutral-600 transition duration-150 hover:bg-neutral-100 hover:text-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black dark:text-neutral-400 dark:hover:bg-neutral-900 dark:hover:text-white dark:focus-visible:outline-white"
+              type="button"
+              aria-label={`Reset popularity for ${game.data.title}`}
+            >
+              Reset
+            </button>
+          </li>
+        ))
+      }
+    </ul>
+    <p class="settings-popularity-empty mt-3 text-xs text-neutral-600 dark:text-neutral-400">
+      No game taps recorded on this device yet.
+    </p>
   </section>
 
   <section
@@ -124,6 +170,7 @@ import { Settings, X } from "@lucide/astro";
   import { applyCardImages, isCardImagesEnabled, storeCardImagesEnabled } from "../scripts/card-images";
   import { canPromptInstall, promptInstall, shouldSuggestInstall } from "../scripts/install-suggestion";
   import { isInstalledApp, isIos, isOpenInBrowserEnabled, storeOpenInBrowserEnabled } from "../scripts/open-in-browser";
+  import { readPopularity, resetPopularity, sortGameGridByPopularity } from "../scripts/popularity";
 
   const settingsButton = document.querySelector<HTMLButtonElement>(".settings-button");
   const settingsDialog = document.querySelector<HTMLDialogElement>(".settings-dialog");
@@ -135,6 +182,9 @@ import { Settings, X } from "@lucide/astro";
   const installButton = document.querySelector<HTMLButtonElement>(".settings-install-button");
   const installHintIos = document.querySelector<HTMLElement>(".settings-install-hint-ios");
   const installHintOther = document.querySelector<HTMLElement>(".settings-install-hint-other");
+  const popularityList = document.querySelector<HTMLElement>(".settings-popularity-list");
+  const popularityEmpty = document.querySelector<HTMLElement>(".settings-popularity-empty");
+  const popularityRows = document.querySelectorAll<HTMLElement>(".settings-popularity-row");
 
   // Browser hand-off only applies to the installed app, so only offer the setting there.
   if (openInBrowserSection && isInstalledApp()) {
@@ -205,11 +255,74 @@ import { Settings, X } from "@lucide/astro";
     });
   }
 
-  settingsButton?.addEventListener("click", () => settingsDialog?.showModal());
+  // Only games with local tap counts have anything to reset, so the list syncs
+  // whenever the dialog opens.
+  function syncPopularityList(): void {
+    const counts = readPopularity();
+    let hasCounts = false;
+
+    for (const row of popularityRows) {
+      const count = counts[row.dataset.gameId ?? ""] ?? 0;
+
+      row.hidden = count === 0;
+
+      if (count > 0) {
+        hasCounts = true;
+      }
+
+      const countLabel = row.querySelector<HTMLElement>(".settings-popularity-count");
+
+      if (countLabel) {
+        countLabel.textContent = count === 1 ? "1 tap" : `${count} taps`;
+      }
+    }
+
+    if (popularityList) {
+      popularityList.hidden = !hasCounts;
+    }
+
+    if (popularityEmpty) {
+      popularityEmpty.hidden = hasCounts;
+    }
+  }
+
+  popularityList?.addEventListener("click", (event) => {
+    const resetButton =
+      event.target instanceof Element ? event.target.closest<HTMLButtonElement>(".settings-reset-game") : null;
+    const gameId = resetButton?.closest<HTMLElement>(".settings-popularity-row")?.dataset.gameId;
+
+    if (!gameId) {
+      return;
+    }
+
+    resetPopularity(gameId);
+    sortGameGridByPopularity();
+    syncPopularityList();
+
+    // The reset row hides itself; move focus so keyboard users do not lose it.
+    const nextButton = popularityList?.querySelector<HTMLButtonElement>(
+      ".settings-popularity-row:not([hidden]) .settings-reset-game",
+    );
+    (nextButton ?? settingsClose)?.focus();
+  });
+
+  settingsButton?.addEventListener("click", () => {
+    syncPopularityList();
+    settingsDialog?.showModal();
+  });
   settingsClose?.addEventListener("click", () => settingsDialog?.close());
 
   settingsDialog?.addEventListener("click", (event) => {
-    if (event.target === settingsDialog) {
+    // Scrollbar and padding clicks also target the dialog itself; only clicks
+    // outside its box are backdrop clicks.
+    if (!settingsDialog || event.target !== settingsDialog) {
+      return;
+    }
+
+    const { left, top, right, bottom } = settingsDialog.getBoundingClientRect();
+    const outside = event.clientX < left || event.clientX > right || event.clientY < top || event.clientY > bottom;
+
+    if (outside) {
       settingsDialog.close();
     }
   });

@@ -82,5 +82,61 @@
     "popularityIndex": 45,
     "url": "https://costcodle.com/",
     "image": "./images/costcodle.png"
+  },
+  {
+    "id": "spelling-bee",
+    "title": "Spelling Bee",
+    "popularityIndex": 2,
+    "url": "https://www.nytimes.com/puzzles/spelling-bee",
+    "image": "./images/spelling-bee.png"
+  },
+  {
+    "id": "mini-crossword",
+    "title": "The Mini",
+    "popularityIndex": 3,
+    "url": "https://www.nytimes.com/crosswords/game/mini",
+    "image": "./images/mini-crossword.png"
+  },
+  {
+    "id": "quordle",
+    "title": "Quordle",
+    "popularityIndex": 4,
+    "url": "https://www.merriam-webster.com/games/quordle/",
+    "image": "./images/quordle.png"
+  },
+  {
+    "id": "contexto",
+    "title": "Contexto",
+    "popularityIndex": 8,
+    "url": "https://contexto.me/",
+    "image": "./images/contexto.png"
+  },
+  {
+    "id": "pips",
+    "title": "Pips",
+    "popularityIndex": 12,
+    "url": "https://www.nytimes.com/games/pips",
+    "image": "./images/pips.png"
+  },
+  {
+    "id": "flagle",
+    "title": "Flagle",
+    "popularityIndex": 30,
+    "url": "https://www.flagle.io/",
+    "image": "./images/flagle.png"
+  },
+  {
+    "id": "whos-that-pokemon",
+    "title": "Who's That Pokémon?",
+    "popularityIndex": 35,
+    "url": "https://gearoid.me/pokemon/",
+    "image": "./images/whos-that-pokemon.png"
+  },
+  {
+    "id": "elementle",
+    "title": "Elementle",
+    "popularityIndex": 50,
+    "url": "https://elementlegame.com/",
+    "image": "./images/elementle.png"
   }
 ]

@@ -13,14 +13,15 @@ window.addEventListener("beforeinstallprompt", (event) => {
   installPrompt = event as InstallPromptEvent;
 });
 
-// The installed app already runs full screen, so only nudge mobile browsers.
+// The installed app already runs full screen, so only nudge browsers that can install:
+// mobile always (the steps are shown as text), desktop only when Chromium offers a native prompt.
 export function shouldSuggestInstall(): boolean {
   const isMobile =
     /Android|iPhone|iPad|iPod/i.test(navigator.userAgent) ||
     // iPadOS reports itself as a Mac; touch points give it away.
     (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
 
-  return isMobile && !isInstalledApp();
+  return (isMobile || canPromptInstall()) && !isInstalledApp();
 }
 
 export function canPromptInstall(): boolean {

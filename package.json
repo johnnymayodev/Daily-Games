@@ -29,6 +29,7 @@
     "tailwindcss": "^4.3.3"
   },
   "devDependencies": {
-    "prettier": "^3.9.10"
+    "prettier": "^3.9.10",
+    "sharp": "^0.35.5"
   }
 }

@@ -191,10 +191,18 @@ const games = (await getCollection("games")).sort((a, b) => a.data.title.localeC
     openInBrowserSection.hidden = false;
   }
 
-  // Mobile browsers that are not running the installed app get the install section. The button
-  // shows only while a native install prompt is available; otherwise the steps are shown as text.
+  // Browsers that can install get the install section: mobile always, desktop only while a native
+  // install prompt is available. The button shows only while that prompt is available; otherwise
+  // the steps are shown as text.
   function syncInstallSection(): void {
-    if (!installSection || !shouldSuggestInstall()) {
+    if (!installSection) {
+      return;
+    }
+
+    if (!shouldSuggestInstall()) {
+      // The native prompt was consumed, so there is nothing left to act on.
+      installSection.hidden = true;
+
       return;
     }
 

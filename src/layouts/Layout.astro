@@ -20,7 +20,7 @@ const { title, description = "A museum for daily games." } = Astro.props;
     <meta charset="utf-8" />
     <meta
       name="viewport"
-      content="width=device-width, initial-scale=1"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
     />
     <meta
       name="description"
@@ -38,6 +38,18 @@ const { title, description = "A museum for daily games." } = Astro.props;
     <link
       rel="apple-touch-icon"
       href="/apple-touch-icon.png"
+    />
+    <meta
+      name="apple-mobile-web-app-capable"
+      content="yes"
+    />
+    <meta
+      name="mobile-web-app-capable"
+      content="yes"
+    />
+    <meta
+      name="apple-mobile-web-app-title"
+      content="Daily Games"
     />
     <link
       rel="manifest"

@@ -7,6 +7,12 @@ on:
   # Allows you to run this workflow manually from the Actions tab on GitHub
   workflow_dispatch:
 
+# GitHub Pages rejects a deployment while another one is in progress, so runs are
+# queued instead of racing each other. The latest commit is deployed last.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
 # Allow this job to clone the repo and create a page deployment
 permissions:
   contents: read

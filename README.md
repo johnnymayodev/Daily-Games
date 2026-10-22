@@ -19,11 +19,14 @@ Daily Games gathers daily puzzle games from around the web — Wordle, Connectio
 The site is an [Astro](https://astro.build) project styled with [Tailwind CSS](https://tailwindcss.com) and uses Node.js 24 (see `.node-version`).
 
 ```sh
-npm install     # install dependencies
-npm run dev     # start the dev server at localhost:4321
-npm run build   # build the site to dist/
-npm run preview # preview the production build as it deploys
-npm run format  # format the code with Prettier
+npm install         # install dependencies
+npm run dev         # start the dev server at localhost:4321
+npm run build       # build the site to dist/
+npm run preview     # preview the production build as it deploys
+npm run format      # format the code with Prettier
+npm run check       # type check the project with Astro
+npm run format:check # verify formatting without writing changes
+npm run icons       # regenerate the PWA icon PNGs from public/favicon.svg
 ```
 
 Games are listed in `src/content/games.json`; each entry points to a preview image in `src/content/images/`. Pushing to `main` builds and deploys the site to GitHub Pages via the workflow in `.github/workflows/deploy.yml`.

@@ -10,6 +10,8 @@ const games = defineCollection({
       popularityIndex: z.number().int().positive(),
       url: z.url(),
       image: image().optional(),
+      description: z.string().optional(),
+      tags: z.array(z.string()).optional(),
     }),
 });
 

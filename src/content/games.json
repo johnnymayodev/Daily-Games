@@ -4,139 +4,179 @@
     "title": "Wordle",
     "popularityIndex": 1,
     "url": "https://www.nytimes.com/games/wordle/index.html",
-    "image": "./images/wordle.png"
+    "image": "./images/wordle.png",
+    "description": "Guess the five-letter word in six tries.",
+    "tags": ["word", "guessing"]
   },
   {
     "id": "connections",
     "title": "Connections",
     "popularityIndex": 1,
     "url": "https://www.nytimes.com/games/connections/",
-    "image": "./images/connections.png"
+    "image": "./images/connections.png",
+    "description": "Group sixteen words into four categories that share a theme.",
+    "tags": ["word", "logic"]
   },
   {
     "id": "globle",
     "title": "Globle",
     "popularityIndex": 13,
     "url": "https://globle-game.com/",
-    "image": "./images/globle.png"
+    "image": "./images/globle.png",
+    "description": "Locate the hidden country on a world map using warmer-colder hints.",
+    "tags": ["geography", "guessing"]
   },
   {
     "id": "enclose-horse",
     "title": "enclose.horse",
     "popularityIndex": 5,
     "url": "https://enclose.horse/",
-    "image": "./images/enclose-horse.png"
+    "image": "./images/enclose-horse.png",
+    "description": "Trap the horse with walls and fence in as much grass as you can.",
+    "tags": ["strategy", "grid"]
   },
   {
     "id": "krillion",
     "title": "Krillion",
     "popularityIndex": 2,
     "url": "https://krillion.io/",
-    "image": "./images/krillion.png"
+    "image": "./images/krillion.png",
+    "description": "Name the rarest answers you can across seven daily prompts.",
+    "tags": ["trivia", "knowledge"]
   },
   {
     "id": "waffle",
     "title": "Waffle",
     "popularityIndex": 40,
     "url": "https://wafflegame.net/",
-    "image": "./images/waffle.png"
+    "image": "./images/waffle.png",
+    "description": "Rearrange letters on a waffle grid to form six words.",
+    "tags": ["word", "logic"]
   },
   {
     "id": "songspot",
     "title": "Songspot",
     "popularityIndex": 10,
     "url": "https://songspot.net/",
-    "image": "./images/songspot.png"
+    "image": "./images/songspot.png",
+    "description": "Name the track from a 0.1-second clip that grows longer with each miss.",
+    "tags": ["music", "guessing"]
   },
   {
     "id": "amountle",
     "title": "Amountle",
     "popularityIndex": 15,
     "url": "https://www.amountle.dev/",
-    "image": "./images/amountle.png"
+    "image": "./images/amountle.png",
+    "description": "Estimate how many objects are inside the jar from a short pour.",
+    "tags": ["estimation", "numbers"]
   },
   {
     "id": "fermi",
     "title": "Fermi",
     "popularityIndex": 20,
     "url": "https://fermi.gg/",
-    "image": "./images/fermi.png"
+    "image": "./images/fermi.png",
+    "description": "Estimate three impossible-sounding numbers and see how close you land.",
+    "tags": ["estimation", "numbers"]
   },
   {
     "id": "hsl-color-game",
     "title": "HSL Color Game",
     "popularityIndex": 80,
     "url": "https://www.realtimecolors.com/game",
-    "image": "./images/hsl-color-game.png"
+    "image": "./images/hsl-color-game.png",
+    "description": "Guess the color from its HSL values and see how close you get.",
+    "tags": ["color", "estimation"]
   },
   {
     "id": "size-it-up",
     "title": "Size It Up",
     "popularityIndex": 60,
     "url": "https://magnitudle.com/size-it-up",
-    "image": "./images/size-it-up.png"
+    "image": "./images/size-it-up.png",
+    "description": "Order a set of objects by size from smallest to largest.",
+    "tags": ["estimation", "comparison"]
   },
   {
     "id": "costcodle",
     "title": "Costcodle",
     "popularityIndex": 45,
     "url": "https://costcodle.com/",
-    "image": "./images/costcodle.png"
+    "image": "./images/costcodle.png",
+    "description": "Guess the Costco price of an item in five tries.",
+    "tags": ["prices", "guessing"]
   },
   {
     "id": "spelling-bee",
     "title": "Spelling Bee",
     "popularityIndex": 2,
     "url": "https://www.nytimes.com/puzzles/spelling-bee",
-    "image": "./images/spelling-bee.png"
+    "image": "./images/spelling-bee.png",
+    "description": "Build as many words as you can from seven letters, including a pangram.",
+    "tags": ["word", "spelling"]
   },
   {
     "id": "mini-crossword",
     "title": "The Mini",
     "popularityIndex": 3,
     "url": "https://www.nytimes.com/crosswords/game/mini",
-    "image": "./images/mini-crossword.png"
+    "image": "./images/mini-crossword.png",
+    "description": "A quick five-by-five crossword from the New York Times.",
+    "tags": ["crossword", "word"]
   },
   {
     "id": "quordle",
     "title": "Quordle",
     "popularityIndex": 4,
     "url": "https://www.merriam-webster.com/games/quordle/",
-    "image": "./images/quordle.png"
+    "image": "./images/quordle.png",
+    "description": "Solve four Wordle boards at once in nine tries.",
+    "tags": ["word", "guessing"]
   },
   {
     "id": "contexto",
     "title": "Contexto",
     "popularityIndex": 8,
     "url": "https://contexto.me/",
-    "image": "./images/contexto.png"
+    "image": "./images/contexto.png",
+    "description": "Follow the warmth of your guesses to find the secret word.",
+    "tags": ["word", "logic"]
   },
   {
     "id": "pips",
     "title": "Pips",
     "popularityIndex": 12,
     "url": "https://www.nytimes.com/games/pips",
-    "image": "./images/pips.png"
+    "image": "./images/pips.png",
+    "description": "Place dominoes to satisfy the color and number rules of each region.",
+    "tags": ["logic", "dominoes"]
   },
   {
     "id": "flagle",
     "title": "Flagle",
     "popularityIndex": 30,
     "url": "https://www.flagle.io/",
-    "image": "./images/flagle.png"
+    "image": "./images/flagle.png",
+    "description": "Guess the country from its flag as more pixels are revealed.",
+    "tags": ["geography", "guessing"]
   },
   {
     "id": "whos-that-pokemon",
     "title": "Who's That Pokémon?",
     "popularityIndex": 35,
     "url": "https://gearoid.me/pokemon/",
-    "image": "./images/whos-that-pokemon.png"
+    "image": "./images/whos-that-pokemon.png",
+    "description": "Identify the Pokémon from its silhouette in as few guesses as possible.",
+    "tags": ["pokemon", "trivia"]
   },
   {
     "id": "elementle",
     "title": "Elementle",
     "popularityIndex": 50,
     "url": "https://elementlegame.com/",
-    "image": "./images/elementle.png"
+    "image": "./images/elementle.png",
+    "description": "Guess the chemical element from its properties.",
+    "tags": ["science", "guessing"]
   }
 ]

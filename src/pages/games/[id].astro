@@ -1,0 +1,79 @@
+---
+import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+
+import { ArrowLeft, ExternalLink } from "@lucide/astro";
+
+import Layout from "../../layouts/Layout.astro";
+
+export async function getStaticPaths() {
+  const games = await getCollection("games");
+
+  return games.map((game) => ({
+    params: { id: game.id },
+    props: { game },
+  }));
+}
+
+interface Props {
+  game: CollectionEntry<"games">;
+}
+
+const { game } = Astro.props;
+const { title, description, tags, url } = game.data;
+---
+
+<Layout
+  title={`${title} · Daily Games`}
+  heading="Daily Games"
+  description={description}
+>
+  <article class="mx-auto max-w-2xl">
+    <a
+      class="inline-flex items-center gap-1.5 rounded-md text-sm font-medium text-neutral-600 transition duration-150 hover:text-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black dark:text-neutral-400 dark:hover:text-white dark:focus-visible:outline-white"
+      href="/"
+    >
+      <ArrowLeft
+        size={16}
+        aria-hidden="true"
+      />
+      All games
+    </a>
+
+    <h2 class="mt-6 text-4xl font-semibold tracking-tight text-balance">{title}</h2>
+
+    {
+      description && (
+        <p class="mt-4 text-lg leading-relaxed text-neutral-600 dark:text-neutral-400">{description}</p>
+      )
+    }
+
+    {
+      tags && tags.length > 0 && (
+        <ul
+          class="mt-6 flex flex-wrap gap-2"
+          aria-label="Tags"
+        >
+          {tags.map((tag) => (
+            <li class="rounded-full border border-neutral-200 px-2.5 py-1 text-xs font-medium text-neutral-600 dark:border-neutral-800 dark:text-neutral-400">
+              {tag}
+            </li>
+          ))}
+        </ul>
+      )
+    }
+
+    <a
+      class="mt-8 inline-flex items-center gap-2 rounded-xl bg-black px-4 py-2.5 text-sm font-semibold text-white transition duration-150 hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black dark:bg-white dark:text-black dark:focus-visible:outline-white"
+      href={url}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      Play {title}
+      <ExternalLink
+        size={16}
+        aria-hidden="true"
+      />
+    </a>
+  </article>
+</Layout>

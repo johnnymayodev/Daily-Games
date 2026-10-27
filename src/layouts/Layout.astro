@@ -6,9 +6,11 @@ import SettingsDialog from "../components/SettingsDialog.astro";
 interface Props {
   title: string;
   description?: string;
+  /** Header label shown on every page; defaults to the document title. */
+  heading?: string;
 }
 
-const { title, description = "A museum for daily games." } = Astro.props;
+const { title, description = "A museum for daily games.", heading = title } = Astro.props;
 ---
 
 <!doctype html>
@@ -87,7 +89,7 @@ const { title, description = "A museum for daily games." } = Astro.props;
     <div class="mx-auto max-w-300 p-4 sm:p-6 lg:p-10">
       <header class="relative mt-2 mb-4 pwa:mt-4 md:mb-6 lg:mb-8">
         <h1 class="text-center text-[0.85rem] font-semibold tracking-[0.16em] text-neutral-600 uppercase dark:text-neutral-400">
-          {title}
+          {heading}
         </h1>
         <SettingsDialog />
       </header>
